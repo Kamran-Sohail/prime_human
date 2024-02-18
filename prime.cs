@@ -1,32 +1,39 @@
-﻿using System;
+using System;
 
-namespace Prime_Number
+class FindPrimes
 {
-    class Prime
+    static bool IsPrime(int number)
     {
-        static void Main(string[] args)
+        if (number <= 1) return false; // 1 or less is not prime
+        if (number <= 3) return true;  // 2 and 3 are prime
+        if (number % 2 == 0 || number % 3 == 0) return false; // Divisible by 2 or 3 is not prime
+
+        // Only check divisibility up to the square root of the number
+        int i = 5;
+        while (i * i <= number)
         {
-            bool Is_Prime = true;
-            Console.WriteLine("Prime Numbers : ");
-            for (int i = 2; i <= 100; i++)
+            if (number % i == 0 || number % (i + 2) == 0)
             {
-                for (int j = 2; j <= 100; j++)
-                {
-
-                    if (i != j && i % j == 0)
-                    {
-                        Is_Prime = false;
-                        break;
-                    }
-
-                }
-                if (Is_Prime)
-                {
-                    Console.Write("\t" + i);
-                }
-                Is_Prime = true;
+                return false;
             }
-            Console.ReadKey();
+            i += 6;
         }
+
+        return true;
+    }
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Prime numbers up to 100:");
+
+        for (int i = 2; i <= 100; i++)
+        {
+            if (IsPrime(i))
+            {
+                Console.Write(i + " ");
+            }
+        }
+
+        Console.ReadKey();
     }
 }
